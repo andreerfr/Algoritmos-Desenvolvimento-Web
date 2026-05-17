@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Tarefas</title>
+    <link rel="stylesheet" href="css.css">
+    <script src="jarvas.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Tarefinhas</h1>
+        
+        <div>
+            <input type="text" id="taskInput" placeholder="Digite sua tarefa...">
+            <button onclick="adicionarTarefa()">Adicionar</button>
+        </div>
+
+        <div>
+            <button onclick="filtrarTarefas('todas')">Todas</button>
+            <button onclick="filtrarTarefas('pendentes')">Pendentes</button>
+            <button onclick="filtrarTarefas('concluidas')">Concluídas</button>
+        </div>
+
+        <ul id="taskList"></ul>
+    </div>
+
+</body>
+</html>
