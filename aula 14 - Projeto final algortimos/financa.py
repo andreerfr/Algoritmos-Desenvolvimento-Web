@@ -46,30 +46,30 @@ class GerenciadorFinancas:
         if categoria and categoria not in self.categorias:
             self.categorias.append(categoria)
             self.salvar_categorias()
-            print(f"✅ Categoria '{categoria}' adicionada com sucesso!")
+            print(f"Categoria '{categoria}' adicionada com sucesso!")
         elif categoria in self.categorias:
-            print("⚠️ Esta categoria já existe!")
+            print("Esta categoria já existe!")
         else:
-            print("❌ Nome de categoria inválido!")
+            print("Nome de categoria inválido!")
     
     def listar_categorias(self):
         """Lista todas as categorias"""
         if not self.categorias:
-            print("📋 Nenhuma categoria cadastrada.")
+            print("Nenhuma categoria cadastrada.")
             return
         
-        print("\n📋 Categorias cadastradas:")
+        print("\nCategorias cadastradas:")
         for i, categoria in enumerate(self.categorias, 1):
             print(f"  {i}. {categoria}")
     
     def adicionar_transacao(self, tipo: str, valor: float, categoria: str, descricao: str = ""):
         """Adiciona uma nova transação (entrada ou saída)"""
         if valor <= 0:
-            print("❌ O valor deve ser maior que zero!")
+            print("O valor deve ser maior que zero!")
             return
         
         if categoria not in self.categorias:
-            print(f"❌ Categoria '{categoria}' não encontrada!")
+            print(f"Categoria '{categoria}' não encontrada!")
             return
         
         transacao = {
@@ -84,11 +84,11 @@ class GerenciadorFinancas:
         
         self.transacoes.append(transacao)
         self.salvar_transacoes()
-        print(f"✅ {tipo.capitalize()} de R$ {valor:.2f} registrada com sucesso!")
+        print(f" {tipo.capitalize()} de R$ {valor:.2f} registrada com sucesso!")
     
     def registrar_entrada(self):
         """Registra uma entrada de dinheiro"""
-        print("\n💰 REGISTRAR ENTRADA")
+        print("\n REGISTRAR ENTRADA")
         print("-" * 40)
         
         try:
@@ -99,11 +99,11 @@ class GerenciadorFinancas:
             
             self.adicionar_transacao("entrada", valor, categoria, descricao)
         except ValueError:
-            print("❌ Valor inválido!")
+            print("Valor inválido!")
     
     def registrar_saida(self):
         """Registra uma saída de dinheiro"""
-        print("\n💸 REGISTRAR SAÍDA")
+        print("\nREGISTRAR SAÍDA")
         print("-" * 40)
         
         try:
@@ -114,32 +114,32 @@ class GerenciadorFinancas:
             
             self.adicionar_transacao("saida", valor, categoria, descricao)
         except ValueError:
-            print("❌ Valor inválido!")
+            print("Valor inválido!")
     
     def gerar_relatorio(self):
         """Gera relatório do mês atual"""
-        print("\n📊 RELATÓRIO DO MÊS")
+        print("\nRELATÓRIO DO MÊS")
         print("=" * 50)
         
         mes_atual = datetime.now().strftime("%Y-%m")
         transacoes_mes = [t for t in self.transacoes if t.get("mes") == mes_atual]
         
         if not transacoes_mes:
-            print("📋 Nenhuma transação registrada neste mês.")
+            print("enhuma transação registrada neste mês.")
             return
         
         total_entradas = sum(t["valor"] for t in transacoes_mes if t["tipo"] == "entrada")
         total_saidas = sum(t["valor"] for t in transacoes_mes if t["tipo"] == "saida")
         saldo = total_entradas - total_saidas
         
-        print(f"\n📅 Mês: {datetime.now().strftime('%B/%Y')}")
-        print(f"💰 Total de Entradas: R$ {total_entradas:.2f}")
-        print(f"💸 Total de Saídas: R$ {total_saidas:.2f}")
-        print(f"📊 Saldo: R$ {saldo:.2f}")
+        print(f"\nMês: {datetime.now().strftime('%B/%Y')}")
+        print(f"Total de Entradas: R$ {total_entradas:.2f}")
+        print(f"Total de Saídas: R$ {total_saidas:.2f}")
+        print(f"Saldo: R$ {saldo:.2f}")
         
         # Resumo por categoria (saídas)
         if total_saidas > 0:
-            print("\n📊 Gastos por Categoria (Saídas):")
+            print("\nGastos por Categoria (Saídas):")
             saidas_por_categoria = {}
             for t in transacoes_mes:
                 if t["tipo"] == "saida":
@@ -150,18 +150,18 @@ class GerenciadorFinancas:
                 print(f"  {categoria}: R$ {valor:.2f} ({porcentagem:.1f}%)")
         
         # Últimas transações
-        print("\n📝 Últimas transações:")
+        print("\nÚltimas transações:")
         for t in transacoes_mes[-5:]:  # Mostra as 5 últimas
-            tipo_emoji = "💰" if t["tipo"] == "entrada" else "💸"
+            tipo_emoji = "$" if t["tipo"] == "entrada" else "💸"
             print(f"  {tipo_emoji} {t['data'][:10]} - {t['categoria']}: R$ {t['valor']:.2f}")
             if t.get("descricao"):
-                print(f"     📝 {t['descricao']}")
+                print(f" {t['descricao']}")
     
     def menu_principal(self):
         """Exibe o menu principal e gerencia a interação"""
         while True:
             print("\n" + "=" * 50)
-            print("💰 SISTEMA DE FINANÇAS PESSOAIS")
+            print("SISTEMA DE FINANÇAS PESSOAIS")
             print("=" * 50)
             print("1. Gerenciar Categorias")
             print("2. Registrar Entrada")
@@ -181,15 +181,15 @@ class GerenciadorFinancas:
             elif opcao == "4":
                 self.gerar_relatorio()
             elif opcao == "5":
-                print("\n👋 Obrigado por usar o sistema de finanças pessoais!")
+                print("\nObrigado por usar o sistema de finanças pessoais!")
                 break
             else:
-                print("❌ Opção inválida! Tente novamente.")
+                print("Opção inválida! Tente novamente.")
     
     def menu_categorias(self):
         """Submenu para gerenciamento de categorias"""
         while True:
-            print("\n📋 GERENCIAR CATEGORIAS")
+            print("\nGERENCIAR CATEGORIAS")
             print("-" * 40)
             print("1. Ver categorias")
             print("2. Adicionar categoria")
@@ -206,7 +206,7 @@ class GerenciadorFinancas:
             elif opcao == "3":
                 break
             else:
-                print("❌ Opção inválida! Tente novamente.")
+                print("Opção inválida! Tente novamente.")
 
 def main():
     """Função principal do programa"""
@@ -227,7 +227,7 @@ def main():
         ]
         for cat in categorias_padrao:
             app.adicionar_categoria(cat)
-        print("✅ Categorias padrão adicionadas!")
+        print("Categorias padrão adicionadas!")
     
     app.menu_principal()
 
